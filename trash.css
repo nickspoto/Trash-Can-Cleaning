@@ -1,0 +1,240 @@
+html{
+    background-color:white;
+    font-family: "Poppins", sans-serif;
+}
+
+#header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    border-width: 2px;
+    color: black;
+    font-style: bold;
+    background-color: #008CBA;
+    position: fixed;
+    width: 100%;
+    margin-left: -10px;
+    margin-top: -18px;
+    border-bottom: solid rgba(0,0,0,.1) 2px;
+}
+
+#trash-images{
+    width: 64px;
+    height: 64px;
+}
+
+#arrow-right {
+    width: 0; 
+    height: 0; 
+    border-top: 32px solid transparent;
+    border-bottom: 32px solid transparent;
+    border-left: 43.2px solid white;
+}
+
+#arrow-opp-right {
+    width: 0; 
+    height: 0; 
+    border-top: 32px solid white;
+    border-bottom: 32px solid white;
+    border-left: 43.2px solid transparent;
+}
+
+#arrow-outline {
+    display: flex;
+    border: none;
+    padding-left: 8px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+#trash-rect{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border: none;
+    padding-top: 19px;
+    max-height: 45px;
+}
+
+#main-info{
+    text-align: left;
+    font-size: 1.1rem;
+    padding: 10px;
+    padding-top: 100px;
+}
+
+#outro{
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 10px;
+    padding-bottom: 0;
+}
+
+#buttons{
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+    padding-top: 1%;
+    padding-bottom: 3%;
+}
+
+.button1{
+    background-color: #008CBA; /* Blue */
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px 8vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.3rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.button1:hover { /*Make another button under this button and move top button down to provide on-click effect*/
+    background-color: #007AA3; /* Darker blue to provide on hover effect */
+    color: white;
+}
+
+.button1:active {
+    background-color: #007AA3;
+    position: relative;
+    transform: translateY(4px);
+}
+
+#button-pressed{
+    display: grid;
+    align-self: center;
+    justify-content: center;
+    padding-bottom: 3%;
+    font-size: 1.6rem;
+}
+
+
+#selected-date{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    padding-bottom: 10px;
+    font-size: 1.6rem;
+}
+
+#bottom{
+    display:flex;
+    align-content: center;
+    justify-content: center;
+}
+
+#calendar{
+    margin: 0;
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+#calendar-container {
+    border: solid rgba(0,0,0,.1);
+    border-radius: 8px;
+    background-color: white;
+    width: 450px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.1);
+}
+
+#calendar-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    padding: 25px 30px 10px;
+    font-size: 1.4rem;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: none;
+    border-bottom: solid rgba(0,0,0,.1);
+    background-color: #008CBA;
+}
+
+#navigation div{
+    display: inline-flex;
+    align-content: center;
+    text-align: center;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    margin: 0 1px;
+    cursor: pointer;
+    border-radius: 50%;
+    user-select: none;
+    color: white;
+    font-size: 1.9rem;
+}
+
+#navigation div:hover{
+    background: rgba(0,0,0,.1);
+}
+
+#navigation div:last-child{
+    margin-right: -10px;
+}
+
+#calendar-prev{
+    visibility: visible;
+}
+
+#current-month{
+    font-size:1.5rem;
+    height:40px;
+    color: white;
+}
+
+#calendar-body {
+    border: solid rgba(0,0,0,.1);
+    padding: 20px;
+}
+
+#calendar-body ul{
+    padding-left: 0;
+    list-style: none;
+    flex-wrap: wrap;
+    display: flex;
+    text-align: center;
+}
+
+#header-weekdays li{
+    width: 14.28%;
+    font-size: 1.1rem;
+    color: #414141;
+    border-radius: 50%;
+}
+
+#calendar-body #calendar-days{
+    margin-bottom: 10px;
+}
+
+#calendar-days li {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    z-index: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    width: calc(100% / 7 - 20px);
+    margin: 10px 10px; 
+    height: 36px;
+}
+
+#calendar-days li:hover{
+    background-color: rgba(0,0,0,.1);
+}
+
+#form{
+    background: white;
+    width: 40%;
+    border: solid black;
+    margin-left: 100px;
+}
