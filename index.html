@@ -102,7 +102,7 @@
                 const ul = document.getElementById("calendar-days");
                 const navigation = document.getElementById("navigation");
                 navigation.addEventListener("click", navigationClick);
-                function navigationClick(){ //changes month on click of the nav buttons - make it update calendar date
+                function navigationClick(){ //changes month on click of the nav buttons - updates calendar date
                     if (event.target.id === "calendar-prev" && (currMonth != 5 || currYear != 2024)){
                         if (currMonth > 0){
                             currMonth -= 1;
@@ -132,11 +132,13 @@
                     updateDate();
                 }
                 const weekdays = document.getElementById("calendar-days");
-                weekdays.addEventListener("click", dayClick);//clicking calendar days
+                weekdays.addEventListener("click", dayClick);
                 function dayClick() {
-                    if (event.target.nodeName === "LI") {
+                    const target = event.target.id;
+                    if (event.target.nodeName === "LI" && target !== "bad") { //don't let user click prior month days
                         selectedDay = event.target.innerHTML;
                         document.getElementById("date-form").value = monthList[currMonth] + " " + selectedDay + ", " + currYear;
+                        //make this also have week day - monday, tuesday etc.
                     }
                 }
                 function leapYear(year){
@@ -166,14 +168,32 @@
                     ul.innerHTML = "";
                     var date = new Date(currYear, currMonth, 1);//get first day of the month
                     var priorDays = date.getDay();
+                    var priorMonthDays = 0;
+                    if (currMonth > 0){
+                        priorMonthDays = monthDays[(currMonth-1)];
+                    }
+                    else{
+                        priorMonthDays = monthDays[11];
+                    }
+                    var priorDaysArrays = [];
+                    for (let i = 1; i < priorDays + 1; i++){
+                        priorDaysArrays.push(priorMonthDays);
+                        priorMonthDays -= 1;
+                    }
                     for (let i = 1; i < monthDays[currMonth] + 1; i++){
                         const listItem = document.createElement("li");
-                        if (priorDays > 0){ //now just make a new array to get the length of the previous month and add previous days
+                        if (priorDays > 0){
                             priorDays -= 1;
                             i --;
-                        }
+                            listItem.textContent = priorDaysArrays[priorDays];
+                            listItem.style.color = "rgba(0,0,0,.5)";
+                            listItem.style.setProperty('--background-color', 'none');
+                            listItem.style.cursor = "default"; //no changes on hover!!
+                            listItem.id = "bad";
+                        } //makes previous month days highlighted differently
                         else {
                             listItem.textContent = i;
+                            listItem.style.setProperty('--background-color', 'rgba(0,0,0,.1)');
                         }
                         ul.appendChild(listItem);
                     } 
@@ -186,8 +206,7 @@
                     document.getElementById("calendar-prev").style.visibility = "visible";
                 }
                 updateDate();
-                //TODO - add functionality to the buttons, add in the days of the previous month and change their colors
-                //later - add the form and finish the website! all done - but make sure to add a honey pot to the form
+                //TODO - add functionality to trash company buttons, recommit this area and css
             </script>
         </div>
         
