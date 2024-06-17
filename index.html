@@ -27,7 +27,7 @@
             <!-- To anyone who sees this - sorry but the implementation I wanted only works with empty space.
             Please ignore the smell -->
             <div id="trash-rect">
-                TRASH CAN CLEANING
+                Tottenham Trash Titans
                 &emsp;&emsp;
                 &emsp;&emsp;&emsp;&emsp;
                 &emsp;&emsp;&emsp;&emsp;
@@ -43,8 +43,7 @@
         trash can will be empty, please fill out the form with your name, address, email, and trash can information 
         to reserve your slot.
     </p>
-    <div id="button-pressed"> No trash service selected. </div>
-    <div id="selected-date">No date selected.</div> <!--remove these eventually once form functionality added-->
+    <div id="button-pressed"> No trash service selected. </div> <!--remove this eventually once form functionality added-->
     <div id="buttons">
         <button class="button1" id="button1">Republic</button>
         <button class="button1" id="button2">American</button>
@@ -137,8 +136,7 @@
                 function dayClick() {
                     if (event.target.nodeName === "LI") {
                         selectedDay = event.target.innerHTML;
-                        document.getElementById("selected-date").innerHTML = "Selected " + monthList[currMonth] + 
-                                                                            " " + selectedDay + ", " + currYear + '.';
+                        document.getElementById("date-form").value = monthList[currMonth] + " " + selectedDay + ", " + currYear;
                     }
                 }
                 function leapYear(year){
@@ -192,8 +190,78 @@
                 //later - add the form and finish the website! all done - but make sure to add a honey pot to the form
             </script>
         </div>
+        
         <div id="form">
-            Here's the form
+            <form action="https://formspree.io/f/xqkrrnne" method="POST">
+                <fieldset>
+                
+                <!-- Form Name -->
+                <legend>Trash Form</legend>
+                
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="Name">Name</label>  
+                  <div class="col-md-4">
+                  <input id="Name" name="Name" type="text" placeholder="First Last" class="form-control input-md">
+                    
+                  </div>
+                </div>
+                
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="Address">Address</label>  
+                  <div class="col-md-4">
+                  <input id="Address" name="Address" type="text" placeholder="1111 Tottenham Ct" class="form-control input-md" required="">
+                    
+                  </div>
+                </div>
+                
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="textinput">Date</label>  
+                  <div class="col-md-4">
+                  <input id="date-form" name="date-form" type="text" placeholder="June 1, 2024" class="form-control input-md" required="">
+                    
+                  </div>
+                </div>
+                
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="Recycling Cans"># of recycling cans - $15 each</label>  
+                  <div class="col-md-4">
+                  <input id="Recycling Cans" name="Recycling Cans" type="text" placeholder="1" class="form-control input-md" required="">
+                    
+                  </div>
+                </div>
+                
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="Trash Cans"># of trash cans - $20 each</label>  
+                  <div class="col-md-4">
+                  <input id="Trash Cans" name="Trash Cans" type="text" placeholder="1" class="form-control input-md" required="">
+                    
+                  </div>
+                </div>
+                
+                <!-- Textarea -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="Other Information">Other Info - questions, payment, pickup requests</label>
+                  <div class="col-md-4">                     
+                    <textarea class="form-control" id="Other Information" name="Other Information"></textarea>
+                  </div>
+                </div>
+                
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for=""></label>
+                  <div class="col-md-4">
+                    <button id="" name="" class="btn btn-primary">Submit</button>
+                  </div>
+                </div>
+                
+                </fieldset>
+                </form>
+                
         </div>
     </div>
     <p id="outro">
