@@ -18,30 +18,24 @@
 		<img src="dirtyTrash.png" alt="Dirty Trash" id="trash-images">
         <div id="arrow-outline">
             <div id="arrow-opp-right"></div>
+            <!-- To anyone who sees this - sorry but the implementation I wanted only works with empty space.
+            Please ignore the smell -->
             <div id="trash-rect">
                 &emsp;&emsp;&emsp;
                 &emsp;&emsp;&emsp;&emsp;
                 &emsp;&emsp;&emsp;&emsp;
                 &emsp;&emsp;&emsp;&emsp;
-            </div>
-            <!-- To anyone who sees this - sorry but the implementation I wanted only works with empty space.
-            Please ignore the smell -->
-            <div id="trash-rect">
                 Tottenham Trash Titans
-                &emsp;&emsp;
-                &emsp;&emsp;&emsp;&emsp;
-                &emsp;&emsp;&emsp;&emsp;
-                &emsp;&emsp;&emsp;&emsp;
             </div>
+            
             <div id="arrow-right"></div>
         </div>
         <img src="cleanTrash.png" alt="Clean Trash" id="trash-images">
 	</div>
     <p id="main-info"> Hello! We are your neighbors, Nick Spoto and Caleb Ludlow, and we are back again offering our trash and recycling
-        can cleaning services! You can now sign up through this website. Select your garbage collection service through one
-        of the buttons below, and the calendar will highlight its pickup days. After selecting a day you are sure your
-        trash can will be empty, please fill out the form with your name, address, email, and trash can information 
-        to reserve your slot.
+        can cleaning services! You can now sign up through this website. The buttons below will display your trash service's
+        pickup day. After selecting a day you are sure your trash can will be empty, please fill out the form with your name, address, email, and trash can information 
+        to reserve your slot. We will send a verification email after submission - please reply!
     </p>
     <div id="button-pressed"> No trash service selected. </div> <!--remove this eventually once form functionality added-->
     <div id="buttons">
@@ -56,10 +50,10 @@
         button3.addEventListener("click", clickFunction);
         function clickFunction(){
             if (event.target.id === "button1" || event.target.id === "button2"){
-                const pickupDays = ["Sunday and Thursday.", "Monday and Friday."]; //update with the correct days
+                const pickupDays = ["Thursday.", "Monday."]; //update with the correct days
                 const element = document.getElementById(event.target.id);
                 document.getElementById("button-pressed").innerHTML = `Your trash service is ` + element.innerHTML + 
-                `. Your pickup days are ` + (event.target.id === "button1" ? pickupDays[0] : pickupDays[1]); 
+                `. Your pickup day is ` + (event.target.id === "button1" ? pickupDays[0] : pickupDays[1]); 
                 //sets the div to what you have clicked to confirm
             }
             else if (event.target.id === "button3"){ //deals with others case
@@ -228,6 +222,14 @@
                 
                 <!-- Text input-->
                 <div class="form-group">
+                    <label class="col-md-4 control-label" for="Email Address">Email Address</label>  
+                    <div class="col-md-4">
+                    <input id="Email Address" name="Email Address" type="text" placeholder="example@gmail.com" class="form-control input-md" required="">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
                   <label class="col-md-4 control-label" for="Address">Address</label>  
                   <div class="col-md-4">
                   <input id="Address" name="Address" type="text" placeholder="1111 Tottenham Ct" class="form-control input-md" required="">
@@ -283,6 +285,39 @@
                 
         </div>
     </div>
+    <script>
+        window.addEventListener("resize", resizeHeader);
+        function resizeHeader(){ //solves all ios issues with header
+            var w = window.innerWidth;
+            var numSpaces = w / 60;
+            const textArea = document.getElementById("trash-rect");
+            const forms = document.getElementById("form")
+            console.log(textArea.style.fontSize);
+            if (w < 500){ //specific!
+                textArea.style.fontSize = '1.0rem';
+                numSpaces = 1;
+            }
+            else if(w<666){
+                textArea.style.fontSize = '1.3rem';
+                numSpaces = 1;
+            }
+            else{
+                textArea.style.fontSize = '1.5rem';
+            }
+            if (w < 960){
+                forms.style.paddingTop = '30px';
+                forms.style.marginLeft = '0px';
+            }
+            else {
+                forms.style.paddingTop = '0px';
+                forms.style.marginLeft = '80px';
+            }
+            
+            var spaces = String.fromCharCode(160).repeat(numSpaces);
+            document.getElementById("trash-rect").innerHTML = spaces + "Tottenham Trash Titans" + spaces; 
+        }
+        resizeHeader();
+    </script>
     <p id="outro">
         If you have any other questions or concerns, please email us at nickspoto1221@gmail.com
         or calebludlow@gmail.com. <br>
