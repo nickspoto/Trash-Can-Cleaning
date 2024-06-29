@@ -44,7 +44,7 @@
         button3.addEventListener("click", clickFunction);
         function clickFunction(){
             if (event.target.id === "button1" || event.target.id === "button2"){
-                const pickupDays = ["Thursday.", "Monday."]; //update with the correct days
+                const pickupDays = ["Monday.", "Thursday."]; //update with the correct days
                 const element = document.getElementById(event.target.id);
                 document.getElementById("button-pressed").innerHTML = `Your trash service is ` + element.innerHTML + 
                 `. Your pickup day is ` + (event.target.id === "button1" ? pickupDays[0] : pickupDays[1]); 
