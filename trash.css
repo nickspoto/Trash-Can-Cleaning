@@ -1,13 +1,14 @@
 html{
     background-color:white;
     font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
 }
 
 #header{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 20px;
     border-width: 2px;
     color: black;
     font-style: bold;
@@ -111,7 +112,6 @@ html{
     justify-content: center;
     padding-bottom: 3%;
     font-size: 1.6rem;
-    text-align: center;
 }
 
 
@@ -186,8 +186,9 @@ html{
     margin-right: -10px;
 }
 
-#calendar-prev{
+.calendar-prev{
     visibility: visible;
+    background: var(--background-color);
 }
 
 #current-month{
