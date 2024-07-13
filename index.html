@@ -44,7 +44,7 @@
         button3.addEventListener("click", clickFunction);
         function clickFunction(){
             if (event.target.id === "button1" || event.target.id === "button2"){
-                const pickupDays = ["Monday.", "Thursday."]; //update with the correct days
+                const pickupDays = ["Thursday.", "Monday."]; //update with the correct days
                 const element = document.getElementById(event.target.id);
                 document.getElementById("button-pressed").innerHTML = `Your trash service is ` + element.innerHTML + 
                 `. Your pickup day is ` + (event.target.id === "button1" ? pickupDays[0] : pickupDays[1]); 
@@ -79,123 +79,7 @@
                     <ul id="calendar-days"></ul>
                 </div>
             </div>
-            <script>
-                let date = new Date();
-                let selectedDay = null;
-                var currMonth = date.getMonth();
-                var currYear = date.getFullYear();
-                const monthList = ["January", "February", "March", "April", "May", "June", "July", "August",
-                                    "September", "October", "November", "December"]
-                var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-                const ul = document.getElementById("calendar-days");
-                const navigation = document.getElementById("navigation");
-                navigation.addEventListener("click", navigationClick);
-                function navigationClick(){ //changes month on click of the nav buttons - updates calendar date
-                    if (event.target.id === "calendar-prev" && (currMonth != 5 || currYear != 2024)){
-                        if (currMonth > 0){
-                            currMonth -= 1;
-                        }
-                        else{
-                            currMonth = 11;
-                            currYear -= 1;
-                        }
-                        const backArrow = document.getElementById("calendar-prev");
-                        if (currMonth === 5 && currYear === 2024){
-                            backArrow.style.visibility = "hidden";
-                        }
-                    }
-                    else if (event.target.id === "calendar-next"){
-                        if (currMonth < 11){
-                            currMonth += 1;
-                        }
-                        else{
-                            currMonth = 0;
-                            currYear += 1;
-                        }
-                        const backArrow = document.getElementById("calendar-prev");
-                        if (backArrow.style.visibility === "hidden"){
-                            backArrow.style.visibility = "visible";
-                        }
-                    }
-                    updateDate();
-                }
-                const weekdays = document.getElementById("calendar-days");
-                weekdays.addEventListener("click", dayClick);
-                function dayClick() {
-                    const target = event.target.id;
-                    if (event.target.nodeName === "LI" && target !== "bad") { //don't let user click prior month days
-                        selectedDay = event.target.innerHTML;
-                        document.getElementById("date-form").value = monthList[currMonth] + " " + selectedDay + ", " + currYear;
-                        //make this also have week day - monday, tuesday etc.
-                    }
-                }
-                function leapYear(year){
-                    var result; 
-                    if (currYear % 400 === 0){
-                    result = true
-                    }
-                    else if(currYear % 100 === 0){
-                    result = false
-                    }
-                    else if(currYear % 4 === 0){
-                    result= true
-                    }
-                    else{
-                    result= false
-                    }
-                    return result
-                }
-                function updateDate(){
-                    if (leapYear(currYear)){
-                        monthDays[1] = 29;
-                    }
-                    else {
-                        monthDays[1] = 28;
-                    }
-                    document.getElementById("current-month").innerHTML = monthList[currMonth] + " " + currYear;
-                    ul.innerHTML = "";
-                    var date = new Date(currYear, currMonth, 1);//get first day of the month
-                    var priorDays = date.getDay();
-                    var priorMonthDays = 0;
-                    if (currMonth > 0){
-                        priorMonthDays = monthDays[(currMonth-1)];
-                    }
-                    else{
-                        priorMonthDays = monthDays[11];
-                    }
-                    var priorDaysArrays = [];
-                    for (let i = 1; i < priorDays + 1; i++){
-                        priorDaysArrays.push(priorMonthDays);
-                        priorMonthDays -= 1;
-                    }
-                    for (let i = 1; i < monthDays[currMonth] + 1; i++){
-                        const listItem = document.createElement("li");
-                        if (priorDays > 0){
-                            priorDays -= 1;
-                            i --;
-                            listItem.textContent = priorDaysArrays[priorDays];
-                            listItem.style.color = "rgba(0,0,0,.5)";
-                            listItem.style.setProperty('--background-color', 'none');
-                            listItem.style.cursor = "default"; //no changes on hover!!
-                            listItem.id = "bad";
-                        } //makes previous month days highlighted differently
-                        else {
-                            listItem.textContent = i;
-                            listItem.style.setProperty('--background-color', 'rgba(0,0,0,.1)');
-                        }
-                        ul.appendChild(listItem);
-                    } 
-                }
-                if (currMonth === 5 && currYear === 2024){ //don't want people setting dates in the past
-                    const backArrow = document.getElementById("calendar-prev");
-                    backArrow.style.visibility = "hidden";
-                }
-                else {
-                    document.getElementById("calendar-prev").style.visibility = "visible";
-                }
-                updateDate();
-                //TODO - add functionality to trash company buttons, recommit this area and css
-            </script>
+            
         </div>
         
         <div id="form">
@@ -233,7 +117,7 @@
                 
                 <!-- Text input-->
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="textinput">Date</label>  
+                  <label class="col-md-4 control-label" for="textinput" id="date-label">Date</label>  
                   <div class="col-md-4">
                   <input id="date-form" name="date-form" type="text" placeholder="June 1, 2024" class="form-control input-md" required="">
                     
@@ -260,7 +144,7 @@
                 
                 <!-- Textarea -->
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="Other Information">Other - questions, payment type, pickup requests</label>
+                  <label class="col-md-4 control-label" for="Other Information">Other Info - questions, payment, pickup requests</label>
                   <div class="col-md-4">                     
                     <textarea class="form-control" id="Other Information" name="Other Information"></textarea>
                   </div>
@@ -280,6 +164,146 @@
         </div>
     </div>
     <script>
+        let date = new Date();
+        let selectedDay = null;
+        var currMonth = date.getMonth();
+        var currYear = date.getFullYear();
+        const monthList = ["January", "February", "March", "April", "May", "June", "July", "August",
+                            "September", "October", "November", "December"]
+        var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        const ul = document.getElementById("calendar-days");
+        var focusedDay = null;
+        const navigation = document.getElementById("navigation");
+        navigation.addEventListener("click", navigationClick);
+        function navigationClick(){ //changes month on click of the nav buttons - updates calendar date
+            if (event.target.id === "calendar-prev" && (currMonth != 5 || currYear != 2024)){
+                if (currMonth > 0){
+                    currMonth -= 1;
+                }
+                else{
+                    currMonth = 11;
+                    currYear -= 1;
+                }
+                const backArrow = document.getElementById("calendar-prev");
+                if (currMonth === 5 && currYear === 2024){
+                    backArrow.style.visibility = "hidden";
+                }
+            }
+            else if (event.target.id === "calendar-next"){
+                if (currMonth < 11){
+                    currMonth += 1;
+                }
+                else{
+                    currMonth = 0;
+                    currYear += 1;
+                }
+                const backArrow = document.getElementById("calendar-prev");
+                if (backArrow.style.visibility === "hidden"){
+                    backArrow.style.visibility = "visible";
+                }
+            }
+            updateDate();
+        }
+        const weekdays = document.getElementById("calendar-days");
+        weekdays.addEventListener("click", dayClick);
+        function dayClick() {
+            const target = event.target.id;
+            if (event.target.nodeName === "LI" && target !== "bad") { //don't let user click prior month days
+                const selectedDay = event.target.innerHTML;
+                //for active element, change its color and border
+                changeActive(document.activeElement);
+                document.getElementById("date-form").value = monthList[currMonth] + " " + selectedDay + ", " + currYear;
+                //make this also have week day - monday, tuesday etc.
+            }
+        }
+        function changeActive(element){
+            //find previous active
+            var items = ul.getElementsByTagName("li");
+            for (var i = 0; i < items.length; ++i) {
+                item = items[i];
+                if (item.style.margin === '9.5px 10px'){
+                    item.style.background = 'none';
+                    item.style.border = 'none';
+                    item.style.width = 'calc(100% / 7 - 20px)';
+                    item.style.margin = '10px 10px';
+                }
+            }
+            element.style.border = 'solid rgba(0,0,0,.8) 1px';
+            element.style.width = 'calc(100% / 7 - 21.35px)';
+            element.style.margin = '9.5px 10px';
+            const date = document.getElementById("date-form");
+            date.style.border = 'solid #008CBA';
+            date.style.borderRadius = '3px';
+            //getposition of date-form and scroll to it
+            window.scrollTo(date.offsetLeft, date.offsetTop);
+        }
+        function leapYear(year){
+            var result; 
+            if (currYear % 400 === 0){
+            result = true
+            }
+            else if(currYear % 100 === 0){
+            result = false
+            }
+            else if(currYear % 4 === 0){
+            result= true
+            }
+            else{
+            result= false
+            }
+            return result
+        }
+        function updateDate(){
+            if (leapYear(currYear)){
+                monthDays[1] = 29;
+            }
+            else {
+                monthDays[1] = 28;
+            }
+            document.getElementById("current-month").innerHTML = monthList[currMonth] + " " + currYear;
+            ul.innerHTML = "";
+            var date = new Date(currYear, currMonth, 1);//get first day of the month
+            var priorDays = date.getDay();
+            var priorMonthDays = 0;
+            if (currMonth > 0){
+                priorMonthDays = monthDays[(currMonth-1)];
+            }
+            else{
+                priorMonthDays = monthDays[11];
+            }
+            var priorDaysArrays = [];
+            for (let i = 1; i < priorDays + 1; i++){
+                priorDaysArrays.push(priorMonthDays);
+                priorMonthDays -= 1;
+            }
+            for (let i = 1; i < monthDays[currMonth] + 1; i++){
+                const listItem = document.createElement("li");
+                if (priorDays > 0){
+                    priorDays -= 1;
+                    i --;
+                    listItem.textContent = priorDaysArrays[priorDays];
+                    listItem.style.color = "rgba(0,0,0,.5)";
+                    listItem.style.setProperty('--background-color', 'none');
+                    listItem.style.cursor = "default"; //no changes on hover!!
+                    listItem.id = "bad";
+                } //makes previous month days highlighted differently
+                else {
+                    listItem.textContent = i;
+                    listItem.style.setProperty('--background-color', 'rgba(0,0,0,.1)');
+                    listItem.id = i;
+                }
+                listItem.tabIndex = 0;
+                ul.appendChild(listItem);
+            } 
+        }
+        if (currMonth === 5 && currYear === 2024){ //don't want people setting dates in the past
+            const backArrow = document.getElementById("calendar-prev");
+            backArrow.style.visibility = "hidden";
+        }
+        else {
+            document.getElementById("calendar-prev").style.visibility = "visible";
+        }
+        updateDate();
         window.addEventListener("resize", resizeHeader);
         function resizeHeader(){ //solves all ios issues with header
             var w = window.innerWidth;
