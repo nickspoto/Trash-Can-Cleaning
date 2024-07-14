@@ -221,16 +221,18 @@
             var items = ul.getElementsByTagName("li");
             for (var i = 0; i < items.length; ++i) {
                 item = items[i];
-                if (item.style.margin === '9.5px 10px'){
-                    item.style.background = 'none';
+                if (item.style.marginBottom === '9.5px'){
                     item.style.border = 'none';
                     item.style.width = 'calc(100% / 7 - 20px)';
-                    item.style.margin = '10px 10px';
+                    item.style.marginBottom = '10px';
+                    item.style.marginTop = '10px';
                 }
             }
             element.style.border = 'solid rgba(0,0,0,.8) 1px';
-            element.style.width = 'calc(100% / 7 - 21.35px)';
-            element.style.margin = '9.5px 10px';
+            element.style.width = 'calc(100% / 7 - 21.5px)';
+            element.style.marginBottom = '9.5px';
+            element.style.marginTop = '9.5px';
+            element.style.height = '35px';
             const date = document.getElementById("date-form");
             date.style.border = 'solid #008CBA';
             date.style.borderRadius = '3px';
