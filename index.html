@@ -14,7 +14,8 @@
     <link rel="stylesheet"
         href=
 "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-	<div id="header"> 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <div id="header"> 
 		<img src="dirtyTrash.png" alt="Dirty Trash" id="trash-images">
         <div id="arrow-outline">
             <div id="arrow-opp-right"></div>
@@ -83,7 +84,7 @@
         </div>
         
         <div id="form">
-            <form action="https://formspree.io/f/xqkrrnne" method="POST">
+            <form action="https://formspree.io/f/xqkrrnne" method="POST" onsubmit="return checkMaxDate()">
                 <fieldset>
                 
                 <!-- Form Name -->
@@ -176,7 +177,7 @@
         const navigation = document.getElementById("navigation");
         navigation.addEventListener("click", navigationClick);
         function navigationClick(){ //changes month on click of the nav buttons - updates calendar date
-            if (event.target.id === "calendar-prev" && (currMonth != 5 || currYear != 2024)){
+            if (event.target.id === "calendar-prev" && (currMonth != date.getMonth() || currYear != date.getFullYear())){
                 if (currMonth > 0){
                     currMonth -= 1;
                 }
@@ -185,7 +186,7 @@
                     currYear -= 1;
                 }
                 const backArrow = document.getElementById("calendar-prev");
-                if (currMonth === 5 && currYear === 2024){
+                if (currMonth === date.getMonth() && currYear === date.getFullYear()){
                     backArrow.style.visibility = "hidden";
                 }
             }
@@ -229,7 +230,7 @@
                 }
             }
             element.style.border = 'solid rgba(0,0,0,.8) 1px';
-            element.style.width = 'calc(100% / 7.1 - 21.5px)';
+            element.style.width = 'calc(100% / 7 - 21.5px)';
             element.style.marginBottom = '9.5px';
             element.style.marginTop = '9.5px';
             element.style.height = '35px';
@@ -255,6 +256,52 @@
             }
             return result
         }
+
+        function getInputDate(){
+            const dateInput = document.getElementById("date-form").value;
+            return dateInput;
+        }
+
+        function checkFormatting(date){ //checks if the date inputted looks right so I can properly see it
+            let todayDate = new Date()
+            var dateArray = date.split(' ');
+            if (dateArray.length !== 3){
+                swal("Incorrect date formatting - please try again.", {icon:"error"});
+                return false; //catch early
+            }
+            var day = dateArray[1];
+            while (isNaN(day)){
+                day = day.substring(0, day.length-1); //cuts off all trailing digits and stuff after the day
+            }
+            dateArray[1] = day;
+            const month = dateArray[0];
+            const monthIndex = monthList.indexOf(month);
+            const monthMaxDay = monthDays[monthIndex]; //largest possible day of each month
+            if (day === '' || day < 1 || day > monthMaxDay){ //gotta check individually for each month
+                swal("Your day is either out of range or not a number - try again.", {icon:"error"});
+                return false; 
+            }
+            date = dateArray.join(' ');
+            return new Date(date); //don't do this at the beginning because it wraps around for out of bounds days
+        }
+
+        function checkMaxDate(){ //checks if inputted date falls within trash can days
+            const date = checkFormatting(getInputDate());
+            if (!date){
+                return false;
+            }
+            const lastDay = new Date('August 16, 2024');
+            if (date < new Date()){
+                swal("This date is in the past. Please try again.", {icon:"error"});
+                return false;
+            }
+            if (date > lastDay || new Date() > lastDay){
+                swal("Sorry - Our last day of service is " + lastDay.toDateString() + '.', {icon:"warning"});
+                return false;
+            }
+            return date;
+        }
+
         function updateDate(){
             if (leapYear(currYear)){
                 monthDays[1] = 29;
@@ -298,7 +345,7 @@
                 ul.appendChild(listItem);
             } 
         }
-        if (currMonth === 5 && currYear === 2024){ //don't want people setting dates in the past
+        if (currMonth === date.getMonth() && currYear === date.getFullYear()){ //don't want people looking at dates in the past
             const backArrow = document.getElementById("calendar-prev");
             backArrow.style.visibility = "hidden";
         }
@@ -334,6 +381,7 @@
             
             var spaces = String.fromCharCode(160).repeat(numSpaces);
             document.getElementById("trash-rect").innerHTML = spaces + "Tottenham Trash Titans" + spaces; 
+            
         }
         resizeHeader();
     </script>
